@@ -1,0 +1,17 @@
+@page "/books"
+
+<PageTitle>Books</PageTitle>
+
+<h1>Our Books</h1>
+<hr/>
+
+@* If our books are not done loading, display loading message. *@
+@if(IsLoading) {
+    <p>Retrieving Books...</p>
+} else {
+    @* Otherwise, Display the titles of our retrieved books *@
+    @foreach(BookResponse book in Books) {
+        <p>@book.Title</p>
+    }
+}
+
