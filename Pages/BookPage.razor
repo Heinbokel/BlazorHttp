@@ -11,7 +11,7 @@
 } else if (!ErrorOcurred){
     @* Otherwise, Display the titles of our retrieved books *@
     @foreach(BookResponse book in Books) {
-        <p>@book.Id | @book.Title | @book.ISBN</p>
+        <p>@book.Id | @book.Title | @book.ISBN | <button class="btn btn-danger" @onclick="() => DeleteBook(book.Id)">Delete</button></p>
         <p>@book.Synopsis</p>
     }
 } else {

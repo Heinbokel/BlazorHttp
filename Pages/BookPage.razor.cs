@@ -73,4 +73,45 @@ public partial class BookPage : ComponentBase
         }
     }
 
+    /// <summary>
+    /// Deletes the book with the given ID.
+    /// </summary>
+    /// <param name="bookId">The book's ID</param>
+    /// <returns>The Task to return.</returns>
+    private async Task DeleteBook(int bookId) {
+        // Reset our error variables before each call.
+        this.ErrorOcurred = false;
+        this.ErrorMessage = "";
+        try
+        {
+            // Get our response back from the API as an HttpResponseMessage so we can disect the response better.
+            HttpResponseMessage response = await _httpClient.DeleteAsync($"{BASE_URL}/books/{bookId}");
+
+            // If response is successful, (Any status code between 200-299), delete our book.
+            if (response.IsSuccessStatusCode)
+            {
+                BookResponse? bookToDelete = this.Books.Find(book => book.Id == bookId);
+                if (bookToDelete != null) {
+                    this.Books.Remove(bookToDelete);
+                }
+            }
+            else
+            {
+                // If the response is not successful, handle the error by displaying a message for the user.
+                // This code will run if the API we are calling sent us back a response in the 400 or 500 range.
+                this.ErrorOcurred = true;
+                this.ErrorMessage = $"An unexpected error occurred deleting book: {response.StatusCode}: {response.ReasonPhrase}";
+            }
+
+        }
+        catch (HttpRequestException ex)
+        {
+            // If an exception occurs, handle the error by displaying a message for the user.
+            // This code will run if an exception occurs while calling the server, such as no response or a timeout.
+            this.ErrorOcurred = true;
+            this.ErrorMessage = $"An unexpected error occurred deleting book. Please try again later.";
+            Console.WriteLine(ex.ToString());
+        }
+    }
+
 }
