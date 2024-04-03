@@ -11,7 +11,8 @@
 } else if (!ErrorOcurred){
     @* Otherwise, Display the titles of our retrieved books *@
     @foreach(BookResponse book in Books) {
-        <p>@book.Title</p>
+        <p>@book.Id | @book.Title | @book.ISBN</p>
+        <p>@book.Synopsis</p>
     }
 } else {
     @* If we are here, we know that we are not loading, and that an error occurred. *@

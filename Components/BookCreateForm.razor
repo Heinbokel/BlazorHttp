@@ -11,7 +11,13 @@
         <p>@ErrorMessage</p>
     }
 
+
+
     <form @onsubmit="SubmitForm">
+        <div class="mb-3">
+            <label for="ID" class="form-label">ID</label>
+            <input type="text" class="form-control" id="ID" placeholder="Enter ID of Book to Update" @bind="BookToUpdateId">
+        </div>
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
             <input type="text" class="form-control" id="title" placeholder="Enter title" @bind="BookSaveRequest.Title">
@@ -29,5 +35,6 @@
             <input type="text" class="form-control" id="isbn" placeholder="Enter ISBN" @bind="BookSaveRequest.ISBN">
         </div>
         <button disabled="@IsLoading" type="submit" class="btn btn-primary">Submit</button>
+        <button disabled="@IsLoading" @onclick="UpdateBook" class="btn btn-primary">Update Book</button>
     </form>
 </div>
