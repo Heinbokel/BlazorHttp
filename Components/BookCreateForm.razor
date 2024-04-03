@@ -1,0 +1,33 @@
+<div class="container">
+    <h2>Add New Book</h2>
+
+    @* Display a message if we have made our HTTP Request but are still waiting on the response. *@
+    @if(IsLoading) {
+        <p>Saving Book...</p>
+    }
+
+    @* Display an error message if any errors occurred saving our book. *@
+    @if(ErrorOccurred) {
+        <p>@ErrorMessage</p>
+    }
+
+    <form @onsubmit="SubmitForm">
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" placeholder="Enter title" @bind="BookSaveRequest.Title">
+        </div>
+        <div class="mb-3">
+            <label for="synopsis" class="form-label">Synopsis</label>
+            <textarea class="form-control" id="synopsis" rows="3" placeholder="Enter synopsis" @bind="BookSaveRequest.Synopsis"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="publicationDate" class="form-label">Publication Date</label>
+            <input type="text" class="form-control" id="publicationDate" @bind="BookSaveRequest.PublicationDate">
+        </div>
+        <div class="mb-3">
+            <label for="isbn" class="form-label">ISBN</label>
+            <input type="text" class="form-control" id="isbn" placeholder="Enter ISBN" @bind="BookSaveRequest.ISBN">
+        </div>
+        <button disabled="@IsLoading" type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

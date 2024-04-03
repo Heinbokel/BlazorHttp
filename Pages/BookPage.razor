@@ -8,10 +8,15 @@
 @* If our books are not done loading, display loading message. *@
 @if(IsLoading) {
     <p>Retrieving Books...</p>
-} else {
+} else if (!ErrorOcurred){
     @* Otherwise, Display the titles of our retrieved books *@
     @foreach(BookResponse book in Books) {
         <p>@book.Title</p>
     }
+} else {
+    @* If we are here, we know that we are not loading, and that an error occurred. *@
+    <p class="error">@ErrorMessage</p>
 }
 
+<hr/>
+<BookCreateForm/>
